@@ -2,7 +2,8 @@ name: auto deploy tiktok fe
 
 on: 
   push: 
-    branches: ["master"]
+    branches: 
+      - master
 
 jobs: 
   deploy-tiktok-fe:
@@ -14,22 +15,23 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Install dependencies
-        env:
-          CI: true
-        run: |
-          if [ -e yarn.lock ]; then
-          yarn install --frozen-lockfile
-          elif [ -e package-lock.json ]; then
-          npm ci
-          else
-          npm i
-          fi
-      
       - name: auto deploy tiktok fe
-      - uses: jsmrcaga/action-netlify-deploy@master
+        uses: jsmrcaga/action-netlify-deploy@master
         with: 
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_DEPLOY_MESSAGE: "Prod deploy v${{ github.ref }}"
           NETLIFY_DEPLOY_TO_PROD: true
+
+       - name: Install dependencies
+         env:
+            CI: true
+         run: |
+            if [ -e yarn.lock ]; then
+            yarn install --frozen-lockfile
+            elif [ -e package-lock.json ]; then
+            npm ci
+            else
+            npm i
+            fi
+      
