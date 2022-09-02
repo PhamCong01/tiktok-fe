@@ -8,21 +8,11 @@ on:
 jobs: 
   deploy-tiktok-fe:
     runs-on: ubuntu-latest
-    
     steps: 
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-
-      - name: auto deploy tiktok fe
-        uses: jsmrcaga/action-netlify-deploy@master
-        with: 
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_DEPLOY_MESSAGE: "Prod deploy v${{ github.ref }}"
-          NETLIFY_DEPLOY_TO_PROD: true
-
        - name: Install dependencies
          env:
             CI: true
