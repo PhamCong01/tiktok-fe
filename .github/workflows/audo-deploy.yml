@@ -6,7 +6,8 @@ on:
       - master
 
 jobs: 
-  deploy-tiktok-fe:
+  deploy:
+    name: 'Deploy tiktok fe'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
