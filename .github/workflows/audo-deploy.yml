@@ -25,3 +25,5 @@ jobs:
           else
           npm i
           fi
+      - name: build project
+        run: npm run build
