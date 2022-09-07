@@ -1,8 +1,23 @@
-import React, { useEffect } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-import axios from "axios";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import DialogTitle from "@mui/material/DialogTitle";
+import Dialog from "@mui/material/Dialog";
 import { apiBase } from "../api";
-function LoginButton() {
+import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
+import { openDashboardLogin } from "../../redux/selector";
+
+export default function LoginButton(props: any) {
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (value: string) => {
+    setOpen(false);
+  };
+
   const { user, isAuthenticated, loginWithPopup, logout } = useAuth0();
   const handlerLoginWithGoogle = () => {
     loginWithPopup();
@@ -31,14 +46,13 @@ function LoginButton() {
         });
     }
   };
+  const isOpenDashboardLogin = useSelector(openDashboardLogin);
+  console.log(isOpenDashboardLogin);
   return (
     <>
-      <button onClick={() => handlerLoginWithGoogle()}>Log in</button>
-      <button onClick={() => logout({ returnTo: window.location.origin })}>
-        Log out
-      </button>
+      <Dialog onClose={handleClose} open={open}>
+        <DialogTitle>Set backup account</DialogTitle>
+      </Dialog>
     </>
   );
 }
-
-export default LoginButton;
