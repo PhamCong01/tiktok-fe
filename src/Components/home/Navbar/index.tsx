@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "./Logo";
 import { FiSend } from "react-icons/fi";
 import { BiMessageAltMinus, BiSearchAlt } from "react-icons/bi";
@@ -7,11 +7,12 @@ import { IoMdMore } from "react-icons/io";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import { useAuth0 } from "@auth0/auth0-react";
-import {useDispatch} from "react-redux";
-import { openDashboardLogin } from "../../../redux/reducer";
+import { useDispatch } from "react-redux";
+import LoginButton from "../../auth/Login";
 const Navbar = () => {
   const { isAuthenticated } = useAuth0();
-  const dispatch = useDispatch()
+  const [open, setOpen] = useState(false);
+
   return (
     <>
       <div className="w-[100%] flex justify-between items-center">
@@ -64,11 +65,17 @@ const Navbar = () => {
                 </button>
               </div>
             </div>
-            <div className="mr-[20px] py-[6px] px-[25px] rounded-md bg-[#f80000] font-medium  text-[#fff] cursor-pointer" onClick={() => dispatch(openDashboardLogin())}>
+            <div
+              className="mr-[20px] py-[6px] px-[25px] rounded-md bg-[#f80000] font-medium  text-[#fff] cursor-pointer"
+              onClick={() => setOpen(true)}
+            >
               <button>Log in</button>
             </div>
             <div className="text-[26px] cursor-pointer">
               <IoMdMore />
+            </div>
+            <div>
+              <LoginButton open={open} close={() => setOpen(false)} />
             </div>
           </div>
         )}

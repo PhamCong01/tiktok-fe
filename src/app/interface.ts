@@ -12,3 +12,11 @@ export interface SimpleDialogProps {
 export interface InitialState {
   openDashboardLogin: boolean;
 }
+
+export interface User {
+  name: string,
+  nickname: string,
+  email: string,
+  picture: string,
+
+}
