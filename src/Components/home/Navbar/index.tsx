@@ -7,15 +7,16 @@ import { IoMdMore } from "react-icons/io";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useDispatch } from "react-redux";
 import LoginButton from "../../auth/Login";
+import SettingsComponent from "./Setting";
 const Navbar = () => {
   const { isAuthenticated } = useAuth0();
   const [open, setOpen] = useState(false);
+  const [openSetting, setOpenSetting] = useState(false);
 
   return (
     <>
-      <div className="w-[100%] flex justify-between items-center">
+      <div className="w-[100%] flex justify-between items-center ">
         <div>
           <Logo />
         </div>
@@ -32,26 +33,32 @@ const Navbar = () => {
           </span>
         </div>
         {isAuthenticated ? (
-          <div className="flex items-center">
-            <div className="py-[6px] px-[15px] border border-gray-300 mr-[35px] cursor-pointer">
-              <button className="flex items-center font-medium text-[16px]">
-                <span className="text-[23px] mr-[5px]">
-                  <MdAdd />
-                </span>{" "}
-                Upload
-              </button>
+          <div className="flex flex-col !relative">
+            <div className="flex items-center">
+              <div className="py-[6px] px-[15px] border border-gray-300 mr-[35px] cursor-pointer">
+                <button className="flex items-center font-medium text-[16px]">
+                  <span className="text-[23px] mr-[5px]">
+                    <MdAdd />
+                  </span>{" "}
+                  Upload
+                </button>
+              </div>
+              <div className="text-[26px] mr-[35px] cursor-pointer">
+                <FiSend />
+              </div>
+              <div className="text-[26px] mr-[35px] cursor-pointer">
+                <BiMessageAltMinus />
+              </div>
+              <div
+                className="cursor-pointer"
+                onClick={() => setOpenSetting(!openSetting)}
+              >
+                <Stack direction="row" spacing={2}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                </Stack>
+              </div>
             </div>
-            <div className="text-[26px] mr-[35px] cursor-pointer">
-              <FiSend />
-            </div>
-            <div className="text-[26px] mr-[35px] cursor-pointer">
-              <BiMessageAltMinus />
-            </div>
-            <div className="cursor-pointer">
-              <Stack direction="row" spacing={2}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-              </Stack>
-            </div>
+            {openSetting ? <SettingsComponent />:null}
           </div>
         ) : (
           <div className="flex items-center">
