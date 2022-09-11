@@ -11,12 +11,12 @@ import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-import UserSetting from "../../imageSvg/UserSetting";
-import Tiktok from "../../imageSvg/Tiktok";
-import Setting from "../../imageSvg/Setting";
-import Language from "../../imageSvg/Languge";
-import Question from "../../imageSvg/Question";
-import KeyBoard from "../../imageSvg/KeyBoard";
+import UserSetting from "../imageSvg/UserSetting";
+import Tiktok from "../imageSvg/Tiktok";
+import Setting from "../imageSvg/Setting";
+import Language from "../imageSvg/Languge";
+import Question from "../imageSvg/Question";
+import KeyBoard from "../imageSvg/KeyBoard";
 
 function SettingsComponent() {
   const [openSetting, setOpenSetting] = useState(true);
