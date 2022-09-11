@@ -71,7 +71,7 @@ export default function LoginButton(props: any) {
               Sign in to TikTok
             </h1>
             <div>
-              <div className="flex items-center py-[10px] px-[10px] w-full border border-slate-800 mb-[20px] cursor-pointer">
+              <div className="flex items-center rounded-xl py-[10px] px-[10px] w-full border border-slate-800 mb-[20px] cursor-pointer">
                 <QRCode />
                 <span className="my-0 mx-auto font-medium text-[18px]">
                   Use QR code
@@ -79,7 +79,7 @@ export default function LoginButton(props: any) {
               </div>
             </div>
             <div>
-              <div className="flex items-center py-[10px] px-[10px] w-full border border-slate-800 mb-[20px] cursor-pointer">
+              <div className="flex items-center rounded-xl py-[10px] px-[10px] w-full border border-slate-800 mb-[20px] cursor-pointer">
                 <User />
                 <span className="my-0 mx-auto font-medium text-[18px]">
                   Phone Number / Email / TikTok ID
@@ -87,17 +87,19 @@ export default function LoginButton(props: any) {
               </div>
             </div>
             <div>
-              <div className="flex items-center py-[10px] px-[10px] w-full border border-slate-800 mb-[20px] cursor-pointer">
+              <div className="flex items-center rounded-xl py-[10px] px-[10px] w-full border border-slate-800 mb-[20px] cursor-pointer">
                 <FaceBook />
                 <span className="my-0 mx-auto font-medium text-[18px]">
                   Continue with Facebook
                 </span>
               </div>
             </div>
-            <div onClick={() =>
+            <div
+              onClick={() =>
                 handlerLoginWithGoogle(user, isAuthenticated, loginWithPopup)
-              }>
-              <div className="flex items-center py-[10px] px-[10px] w-full border border-slate-800 mb-[20px] cursor-pointer">
+              }
+            >
+              <div className="flex items-center rounded-xl py-[10px] px-[10px] w-full border border-slate-800 mb-[20px] cursor-pointer">
                 <Google />
                 <span className="my-0 mx-auto font-medium text-[18px]">
                   Continue with Google
@@ -105,7 +107,7 @@ export default function LoginButton(props: any) {
               </div>
             </div>
             <div>
-              <div className="flex items-center py-[10px] px-[10px] w-full border border-slate-800 mb-[20px] cursor-pointer">
+              <div className="flex items-center rounded-xl py-[10px] px-[10px] w-full border border-slate-800 mb-[20px] cursor-pointer">
                 <Twitter />
                 <span className="my-0 mx-auto font-medium text-[18px]">
                   Continue with Twitter
@@ -113,7 +115,7 @@ export default function LoginButton(props: any) {
               </div>
             </div>
             <div>
-              <div className="flex items-center py-[10px] px-[10px] w-full border border-slate-800 mb-[20px] cursor-pointer">
+              <div className="flex items-center rounded-xl py-[10px] px-[10px] w-full border border-slate-800 mb-[20px] cursor-pointer">
                 <Line />
                 <span className="my-0 mx-auto font-medium text-[18px]">
                   Continue with LINE
@@ -121,7 +123,7 @@ export default function LoginButton(props: any) {
               </div>
             </div>
             <div>
-              <div className="flex items-center py-[10px] px-[10px] w-full border border-slate-800 mb-[20px] cursor-pointer">
+              <div className="flex items-center rounded-xl py-[10px] px-[10px] w-full border border-slate-800 mb-[20px] cursor-pointer">
                 <KakaoTalk />
                 <span className="my-0 mx-auto font-medium text-[18px]">
                   Continue with KakaoTalk
@@ -129,7 +131,7 @@ export default function LoginButton(props: any) {
               </div>
             </div>
             <div>
-              <div className="flex items-center py-[10px] px-[10px] w-full border border-slate-800 mb-[20px] cursor-pointer">
+              <div className="flex items-center rounded-xl py-[10px] px-[10px] w-full border border-slate-800 mb-[20px] cursor-pointer">
                 <Apple />
                 <span className="my-0 mx-auto font-medium text-[18px]">
                   Continue with Apple
@@ -137,7 +139,7 @@ export default function LoginButton(props: any) {
               </div>
             </div>
             <div>
-              <div className="flex items-center py-[10px] px-[10px] w-full border border-slate-800 mb-[20px] cursor-pointer">
+              <div className="flex items-center rounded-xl py-[10px] px-[10px] w-full border border-slate-800 mb-[20px] cursor-pointer">
                 <Intagram />
                 <span className="my-0 mx-auto font-medium text-[18px]">
                   Continue with Intagram

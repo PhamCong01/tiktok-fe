@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import Logo from "./Logo";
+import { useNavigate } from "react-router-dom";
+import Logo from "../../imageSvg/Logo";
 import { FiSend } from "react-icons/fi";
 import { BiMessageAltMinus, BiSearchAlt } from "react-icons/bi";
 import { MdAdd } from "react-icons/md";
@@ -10,14 +11,17 @@ import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "../../auth/Login";
 import SettingsComponent from "./Setting";
 const Navbar = () => {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, user } = useAuth0();
+  const navigate = useNavigate()
   const [open, setOpen] = useState(false);
   const [openSetting, setOpenSetting] = useState(false);
-
+  const handleNavigateHome = () => {
+    navigate("/")
+  }
   return (
     <>
       <div className="w-[100%] flex justify-between items-center ">
-        <div>
+        <div className="cursor-pointer" onClick={handleNavigateHome}>
           <Logo />
         </div>
         <div className="w-[30%] relative">
@@ -54,11 +58,14 @@ const Navbar = () => {
                 onClick={() => setOpenSetting(!openSetting)}
               >
                 <Stack direction="row" spacing={2}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                  <Avatar
+                    alt="Remy Sharp"
+                    src={user ? user.picture : "/static/images/avatar/1.jpg"}
+                  />
                 </Stack>
               </div>
             </div>
-            {openSetting ? <SettingsComponent />:null}
+            {openSetting ? <SettingsComponent /> : null}
           </div>
         ) : (
           <div className="flex items-center">

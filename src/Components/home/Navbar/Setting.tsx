@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
@@ -11,9 +11,22 @@ import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import UserSetting from "../../imageSvg/UserSetting";
+import Tiktok from "../../imageSvg/Tiktok";
+import Setting from "../../imageSvg/Setting";
+import Language from "../../imageSvg/Languge";
+import Question from "../../imageSvg/Question";
+import KeyBoard from "../../imageSvg/KeyBoard";
 
 function SettingsComponent() {
-    const [openSetting, setOpenSetting] = useState(true);
+  const [openSetting, setOpenSetting] = useState(true);
+  const { user, logout } = useAuth0();
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+  const hanlderLogout = () => {
+    logout();
+  };
   return (
     <>
       <Menu
@@ -51,29 +64,36 @@ function SettingsComponent() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem>
-          <Avatar /> Profile
+          <UserSetting />{" "}
+          <span className="ml-[10px] font-bold">View profile</span>
         </MenuItem>
+
         <MenuItem>
-          <Avatar /> My account
+          <Tiktok /> <span className="ml-[10px] font-bold">Get coins</span>
         </MenuItem>
-        <Divider />
+
         <MenuItem>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
+          <Setting /> <span className="ml-[10px] font-bold">Settings</span>
         </MenuItem>
+
         <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
+          <Language /> <span className="ml-[10px] font-bold">VietNameses</span>
         </MenuItem>
+
         <MenuItem>
+          <Question />{" "}
+          <span className="ml-[10px] font-bold">Feedback and help</span>
+        </MenuItem>
+
+        <MenuItem>
+          <KeyBoard />{" "}
+          <span className="ml-[10px] font-bold">KeyBoard ShortCuts</span>
+        </MenuItem>
+        <MenuItem onClick={hanlderLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Logout
+          <span className="font-bold">Logout</span>
         </MenuItem>
       </Menu>
     </>
