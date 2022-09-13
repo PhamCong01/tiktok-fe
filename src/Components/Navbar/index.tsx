@@ -22,6 +22,9 @@ const Navbar = () => {
   const handleNavigateHome = () => {
     navigate("/");
   };
+  const handlerNavigateUpload = () => {
+    navigate("/upload");
+  }
   return (
     <>
       <div className="w-[100%] flex justify-between items-center ">
@@ -43,7 +46,7 @@ const Navbar = () => {
         {isAuthenticated ? (
           <div className="flex flex-col !relative">
             <div className="flex items-center">
-              <div className="py-[6px] px-[15px] border border-gray-300 mr-[35px] cursor-pointer">
+              <div className="py-[6px] px-[15px] border border-gray-300 mr-[35px] cursor-pointer" onClick={handlerNavigateUpload}>
                 <button className="flex items-center font-medium text-[16px]">
                   <span className="text-[23px] mr-[5px]">
                     <MdAdd />
