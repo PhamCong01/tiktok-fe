@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { dataDiscover,randomDiscover } from "../../../data/discover";
+import { dataDiscover,randomDiscover } from "../../../data/dataFunctions";
 import Hashtag from "../../imageSvg/Hashtag";
 function Discover() {
     randomDiscover()
   return (
-    <div className="w-[30%]">
+    <div className="w-[100%]">
       <div className="mb-[10px]">
         <h4 className="font-[600] text-[#666] mb-[5px] px-[10px]">Discover</h4>
       </div>
@@ -18,7 +18,7 @@ function Discover() {
             );
           })}
       </div>
-      <div className=" border-b border-gray-300 "></div>
+      <div className=" border-b border-gray-300 mt-[20px]"></div>
     </div>
   );
 }

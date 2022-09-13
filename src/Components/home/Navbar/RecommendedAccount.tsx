@@ -3,7 +3,7 @@ import React from "react";
 
 function RecommendedAccount() {
   return (
-    <div className="w-[30%]  border-b border-gray-300 mb-[10px]">
+    <div className="w-[100%]  border-b border-gray-300 mb-[10px]">
       <h4 className="font-[600] text-[#666] mb-[5px] px-[10px]">Recommended account</h4>
 
       <div>
