@@ -85,7 +85,7 @@ const Navbar = () => {
         ) : (
           <div className="flex items-center">
             <div className="flex items-center mr-[20px]">
-              <div className="py-[6px] px-[15px] border rounded-sm border-gray-300 cursor-pointer">
+              <div className="py-[6px] px-[15px] border rounded-sm border-gray-300 cursor-pointer" onClick={() => setOpen(true)}>
                 <button className="flex items-center font-medium text-[16px]">
                   <span className="text-[23px] mr-[5px]">
                     <MdAdd />
