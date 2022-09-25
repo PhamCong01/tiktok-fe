@@ -4,7 +4,6 @@ import Hashtag from "../imageSvg/Hashtag";
 import IconACong from "../imageSvg/Icon@";
 import Upload from "../imageSvg/Upload";
 
-import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -17,12 +16,20 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch, { SwitchProps } from "@mui/material/Switch";
 import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
 import Footer from "../Footer";
+import {
+  generateVideoThumbnails,
+  importFileandPreview,
+} from "@rajesh896/video-thumbnails-generator";
 
 function UploadContent() {
+  let hidenFileInput: HTMLInputElement | null;
   const [age, setAge] = React.useState("");
-
+  const [urlVideoDemo, setUrlVideoDemo] = React.useState("");
+  const [videoThumb, setVideoThumb] = React.useState("");
+  const [nameVideo, setNameVideo] = React.useState("");
+  const [titleVideo, setTitleVideo] = React.useState("");
+  const [thumbnails, setThumbnails] = React.useState([]);
   const handleChange = (event: SelectChangeEvent) => {
     setAge(event.target.value as string);
   };
@@ -89,6 +96,31 @@ function UploadContent() {
       }),
     },
   }));
+
+  const handlerOpenUploadVideo = () => {
+    if (hidenFileInput) {
+      hidenFileInput.click();
+    }
+  };
+
+  const handlerUploadVideo = async (e: any) => {
+    const file: any = e.target.files[0];
+    const urlDemo = URL.createObjectURL(file);
+    const nameVideo = file.name.split(".")[0]
+    if (urlDemo) {
+      setNameVideo(nameVideo)
+      importFileandPreview(file).then((res) => {
+        setUrlVideoDemo(res);
+        setVideoThumb("");
+        setThumbnails([]);
+      });
+      await generateVideoThumbnails(file, 5, "thumbs").then(
+        (thumbs: any): any => {
+          setThumbnails(thumbs);
+        }
+      );
+    }
+  };
   return (
     <>
       <div className="w-[80%] pb-[100px] shadow-2xl mb-[15px] rounded-lg mt-[100px] my-0 mx-auto py-[20px] px-[50px]">
@@ -98,25 +130,52 @@ function UploadContent() {
         </p>
         <div>
           <div className="mt-[30px] flex justify-center">
-            <div className="relative border-[2px] rounded-xl hover:border-[red] hover:bg-[#f4f3f3] w-[30%] mr-[20px] h-[60vh] border-dashed">
-              <div className="absolute w-[100%] flex justify-center flex-col items-center text-center top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
-                <Upload />
-                <h2 className="text-[18px] font-medium mt-[25px] mb-[15px]">
-                  Select video to upload
-                </h2>
-                <p className="text-[#999]">Or drag and drop files</p>
-                <p className="text-[#999] my-[7px]">MP4 or WebCODE</p>
-                <p className="text-[#999] my-[7px]">
-                  Resolution 720x1280 or <br /> higher
-                </p>
-                <p className="text-[#999] my-[7px]">
-                  Up to 10 minutes <br /> Less than 2 GB
-                </p>
-                <button className="w-[80%] mt-[10px] py-[8px] bg-[#fe2c55] rounded-sm text-[#fff] font-medium">
-                  Select files
-                </button>
+            {urlVideoDemo ? (
+              <div className="relative border-[2px] rounded-xl w-[30%] mr-[20px] h-[60vh]">
+                <div className="absolute h-full w-full">
+                  <video
+                    poster={videoThumb}
+                    controls
+                    autoPlay
+                    src={urlVideoDemo}
+                    className="rounded-xl h-full object-cover w-full"
+                  >
+                    <source src={urlVideoDemo} />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="relative border-[2px] rounded-xl hover:border-[red] hover:bg-[#f4f3f3] w-[30%] mr-[20px] h-[60vh] border-dashed">
+                <div
+                  className="absolute w-[100%] flex justify-center flex-col items-center text-center top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
+                  onClick={handlerOpenUploadVideo}
+                >
+                  <input
+                    type="file"
+                    style={{ display: "none" }}
+                    ref={(refParam) => (hidenFileInput = refParam)}
+                    accept="video/*"
+                    onChange={handlerUploadVideo}
+                  />
+                  <Upload />
+                  <h2 className="text-[18px] font-medium mt-[25px] mb-[15px]">
+                    Select video to upload
+                  </h2>
+                  <p className="text-[#999]">Or drag and drop files</p>
+                  <p className="text-[#999] my-[7px]">MP4 or WebCODE</p>
+                  <p className="text-[#999] my-[7px]">
+                    Resolution 720x1280 or <br /> higher
+                  </p>
+                  <p className="text-[#999] my-[7px]">
+                    Up to 10 minutes <br /> Less than 2 GB
+                  </p>
+                  <button className="w-[80%] mt-[10px] py-[8px] bg-[#fe2c55] rounded-sm text-[#fff] font-medium">
+                    Select files
+                  </button>
+                </div>
+              </div>
+            )}
             <div className="w-[70%]">
               <div>
                 <span className="flex items-center justify-between">
@@ -127,6 +186,9 @@ function UploadContent() {
                   <input
                     className="w-full p-[12px] rounded-sm outline-none break-words"
                     type="text"
+                    defaultValue={nameVideo || ""}
+                    value={titleVideo}
+                    onChange={(e) => setTitleVideo(e.target.value)}
                   />
 
                   <span className="h-full m-auto flex items-center">
@@ -140,8 +202,22 @@ function UploadContent() {
 
               <div className="mt-[30px]">
                 <h4 className="font-medium mb-[10px]">Cover image</h4>
-                <div className="flex items-center border rounded-sm border-gray-600 h-[200px] p-[10px]">
-                  <div className="h-full bg-[#f2f2f2] w-[15%] rounded-sm"></div>
+                <div className="flex items-center border rounded-sm border-gray-600 min-h-[200px] p-[10px] relative">
+                  {urlVideoDemo && thumbnails.length > 0 ? (
+                    thumbnails.map((thumbs, index) => {
+                      return (
+                        <div key={index} onClick={() => setVideoThumb(thumbs)}>
+                          <img
+                            className="h-full cursor-pointer"
+                            src={thumbs}
+                            alt="video"
+                          />
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="min-h-[200px] bg-[#f2f2f2] w-[15%] rounded-sm"></div>
+                  )}
                 </div>
               </div>
 
@@ -151,7 +227,7 @@ function UploadContent() {
                 </h4>
                 <div>
                   <FormControl style={{ minWidth: 270 }}>
-                    <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                    <InputLabel id="demo-simple-select-label">Public</InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
@@ -159,9 +235,9 @@ function UploadContent() {
                       label="Age"
                       onChange={handleChange}
                     >
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+                      <MenuItem value={10}>Public</MenuItem>
+                      <MenuItem value={20}>Friend</MenuItem>
+                      <MenuItem value={30}>Private</MenuItem>
                     </Select>
                   </FormControl>
                 </div>
@@ -233,7 +309,7 @@ function UploadContent() {
         </div>
       </div>
 
-      <Footer/>
+      <Footer />
     </>
   );
 }
